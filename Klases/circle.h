@@ -1,4 +1,3 @@
-
 #pragma once
 #include <iostream>
 #include <fstream>
@@ -28,9 +27,9 @@ using std::left;
 
 
 const int C = 50;
-const string duom = "100000rez.txt";
-const string rez = "vargsai100000.txt";
-const string rez1 = "kieti100000.txt";
+const string duom = "1000000rez.txt";
+const string rez = "vargsai1000000.txt";
+const string rez1 = "kieti1000000.txt";
 
 struct data {
     string vardas, pavarde;
@@ -39,6 +38,26 @@ struct data {
     double rez = 0, mediana = 0;
 
 };
+
+
+
+//class data {
+//
+//public:
+//  string vardas;
+//  string pavarde;
+//  double egz;
+//  vector<double> nd;
+//  double rez = 0;
+//  double mediana = 0;
+//  data() : egz(0) { };
+////  Data(istream& is);
+//};
+
+
+
+
+
 
 void ivestis(data& temp);
 void isved(const data& temp);

@@ -1,4 +1,3 @@
-
 #include "Circle.h"
 
 
@@ -60,13 +59,13 @@ void nuskaitymas()
 
         sarasas.push_back(temp);
         vidurkis = 0;
-        cout << ind << endl;
-        ind++;
+//        cout << ind << endl;
+//        ind++;
     }
 
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> diff = end-start; // Skirtumas (s)
-    std::cout << "1000 eiluciu failo nuskaitymas uztruko: "<< diff.count() << " s\n";
+    std::cout << "1000000 eiluciu failo nuskaitymas uztruko: "<< diff.count() << " s\n";
 
     std::sort(sarasas.begin(), sarasas.end(), [](data a, data b)
     {
@@ -78,48 +77,48 @@ void nuskaitymas()
     start = std::chrono::high_resolution_clock::now();
 
 
-//    vector<data> vargsiukai;
-//    vector<data> kietiakai;
-//
-//    for (const auto& el : sarasas) {
-//        if(el.rez >= 5)
-//        {
-//            vargsiukai.push_back(el);
-//            rf1 << std::left << std::setw(15) << el.vardas << " " << std::setw(15) << el.pavarde;
-//            rf1 << std::setw(15) << std::fixed << std::setprecision(2) << el.rez << std::setw(15) << std::fixed << std::setprecision(2) << el.mediana << " " << endl;
-//        }
-//        else
-//        {
-//            kietiakai.push_back(el);
-//            rf << std::left << std::setw(15) << el.vardas << " " << std::setw(15) << el.pavarde;
-//            rf << std::setw(15) << std::fixed << std::setprecision(2) << el.rez << std::setw(15) << std::fixed << std::setprecision(2) << el.mediana << " " << endl;
-//        }
-//    }
-
     vector<data> vargsiukai;
+    vector<data> kietiakai;
 
-    for (const auto& el : sarasas)
-    {
-        int iteratorius = 0;
+    for (const auto& el : sarasas) {
         if(el.rez >= 5)
         {
+            vargsiukai.push_back(el);
             rf1 << std::left << std::setw(15) << el.vardas << " " << std::setw(15) << el.pavarde;
             rf1 << std::setw(15) << std::fixed << std::setprecision(2) << el.rez << std::setw(15) << std::fixed << std::setprecision(2) << el.mediana << " " << endl;
         }
         else
         {
-            vargsiukai.push_back(el);
-            sarasas.erase(sarasas.begin()+iteratorius);
+            kietiakai.push_back(el);
             rf << std::left << std::setw(15) << el.vardas << " " << std::setw(15) << el.pavarde;
             rf << std::setw(15) << std::fixed << std::setprecision(2) << el.rez << std::setw(15) << std::fixed << std::setprecision(2) << el.mediana << " " << endl;
         }
-        iteratorius++;
     }
+
+//    vector<data> vargsiukai;
+//
+//    for (const auto& el : sarasas)
+//    {
+//        int iteratorius = 0;
+//        if(el.rez >= 5)
+//        {
+//            rf1 << std::left << std::setw(15) << el.vardas << " " << std::setw(15) << el.pavarde;
+//            rf1 << std::setw(15) << std::fixed << std::setprecision(2) << el.rez << std::setw(15) << std::fixed << std::setprecision(2) << el.mediana << " " << endl;
+//        }
+//        else
+//        {
+//            vargsiukai.push_back(el);
+//            sarasas.erase(sarasas.begin()+iteratorius);
+//            rf << std::left << std::setw(15) << el.vardas << " " << std::setw(15) << el.pavarde;
+//            rf << std::setw(15) << std::fixed << std::setprecision(2) << el.rez << std::setw(15) << std::fixed << std::setprecision(2) << el.mediana << " " << endl;
+//        }
+//        iteratorius++;
+//    }
 
 
     end = std::chrono::high_resolution_clock::now();
     diff = end-start; // Skirtumas (s)
-    std::cout << "1000 eiluciu failo rusiavimas ir isvedimas i 2 naujus failus uztruko: "<< diff.count() << " s\n";
+    std::cout << "1000000 eiluciu failo rusiavimas ir isvedimas i 2 naujus failus uztruko: "<< diff.count() << " s\n";
 
 
     diff = std::chrono::high_resolution_clock::now()-st; // Skirtumas (s)
