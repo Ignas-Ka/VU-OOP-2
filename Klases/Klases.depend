@@ -1,8 +1,8 @@
 # depslib dependency file v1.0
-1651590709 source:c:\users\ignas\documents\github\vu-oop-2\klases\main.cpp
+1652871802 source:c:\users\ignas\documents\github\vu-oop-2\klases\main.cpp
 	"Circle.h"
 
-1651590802 c:\users\ignas\documents\github\vu-oop-2\klases\circle.h
+1652872650 c:\users\ignas\documents\github\vu-oop-2\klases\circle.h
 	<iostream>
 	<fstream>
 	<iomanip>
@@ -16,6 +16,6 @@
 	<sstream>
 	<chrono>
 
-1651590673 source:c:\users\ignas\documents\github\vu-oop-2\klases\circle.cpp
+1652805002 source:c:\users\ignas\documents\github\vu-oop-2\klases\circle.cpp
 	"Circle.h"
 

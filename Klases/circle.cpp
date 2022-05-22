@@ -23,35 +23,42 @@ void nuskaitymas()
     auto start = std::chrono::high_resolution_clock::now();
     auto st=start;
 
+    string pagalba;
+    double egzas;
+    double rez;
 
     while (!df.eof())
     {
         data temp;
-        df >> temp.vardas >> temp.pavarde;
+        df >> pagalba;
+        temp.setVardas(pagalba);
+        df >> pagalba;
+        temp.setPavarde(pagalba);
         for (int i = 0; i < 5; i++)
         {
             df >> paz;
-            temp.nd.push_back(paz);
+            temp.getNd().push_back(paz);
             vidurkis += paz;
         }
-        df >> temp.egz;
+        df >> egzas;
+        temp.setEgzaminas(egzas);
 
 
-        if (temp.nd.size() != 0) vidurkis = vidurkis / temp.nd.size();
+        if (temp.getNd().size() != 0) vidurkis = vidurkis / temp.getNd().size();
 
         else vidurkis = 0;
 
-        temp.rez = vidurkis * 0.4 + temp.egz * 0.6;
+        temp.setRez(vidurkis * 0.4 + temp.getEgzaminas() * 0.6);
 
 
-        sort(temp.nd.begin(), temp.nd.begin() + temp.nd.size());
-        if (temp.nd.size() % 2 == 1)
+        sort(temp.getNd().begin(), temp.getNd().begin() + temp.getNd().size());
+        if (temp.getNd().size() % 2 == 1)
         {
-            temp.mediana = temp.nd[temp.nd.size() / 2] * 0.4 + temp.egz * 0.6;
+            temp.setMediana(temp.getNd()[temp.getNd().size() / 2] * 0.4 + temp.getEgzaminas() * 0.6);
         }
         else
         {
-            temp.mediana = ((temp.nd[temp.nd.size() / 2] + temp.nd[(temp.nd.size() / 2) - 1]) / 2.0) * 0.4 + temp.egz * 0.6;
+            temp.setMediana(((temp.getNd()[temp.getNd().size() / 2] + temp.getNd()[(temp.getNd().size() / 2) - 1]) / 2.0) * 0.4 + temp.getEgzaminas() * 0.6);
         }
 
 
@@ -65,12 +72,12 @@ void nuskaitymas()
 
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> diff = end-start; // Skirtumas (s)
-    std::cout << "1000000 eiluciu failo nuskaitymas uztruko: "<< diff.count() << " s\n";
+    std::cout << "100000 eiluciu failo nuskaitymas uztruko: "<< diff.count() << " s\n";
 
     std::sort(sarasas.begin(), sarasas.end(), [](data a, data b)
     {
-        if (a.rez == b.rez) return a.pavarde < b.pavarde;
-        return a.rez < b.rez;
+        if (a.getRez() == b.getRez()) return a.getPavarde() < b.getPavarde();
+        return a.getRez() < b.getRez();
     });
 
 
@@ -81,17 +88,17 @@ void nuskaitymas()
     vector<data> kietiakai;
 
     for (const auto& el : sarasas) {
-        if(el.rez >= 5)
+        if(el.getRez() >= 5)
         {
             vargsiukai.push_back(el);
-            rf1 << std::left << std::setw(15) << el.vardas << " " << std::setw(15) << el.pavarde;
-            rf1 << std::setw(15) << std::fixed << std::setprecision(2) << el.rez << std::setw(15) << std::fixed << std::setprecision(2) << el.mediana << " " << endl;
+            rf1 << std::left << std::setw(15) << el.getVardas() << " " << std::setw(15) << el.getPavarde();
+            rf1 << std::setw(15) << std::fixed << std::setprecision(2) << el.getRez() << std::setw(15) << std::fixed << std::setprecision(2) << el.getMediana() << " " << endl;
         }
         else
         {
             kietiakai.push_back(el);
-            rf << std::left << std::setw(15) << el.vardas << " " << std::setw(15) << el.pavarde;
-            rf << std::setw(15) << std::fixed << std::setprecision(2) << el.rez << std::setw(15) << std::fixed << std::setprecision(2) << el.mediana << " " << endl;
+            rf << std::left << std::setw(15) << el.getVardas() << " " << std::setw(15) << el.getPavarde();
+            rf << std::setw(15) << std::fixed << std::setprecision(2) << el.getRez() << std::setw(15) << std::fixed << std::setprecision(2) << el.getMediana() << " " << endl;
         }
     }
 
@@ -118,7 +125,7 @@ void nuskaitymas()
 
     end = std::chrono::high_resolution_clock::now();
     diff = end-start; // Skirtumas (s)
-    std::cout << "1000000 eiluciu failo rusiavimas ir isvedimas i 2 naujus failus uztruko: "<< diff.count() << " s\n";
+    std::cout << "100000 eiluciu failo rusiavimas ir isvedimas i 2 naujus failus uztruko: "<< diff.count() << " s\n";
 
 
     diff = std::chrono::high_resolution_clock::now()-st; // Skirtumas (s)
@@ -170,18 +177,22 @@ void fileGenerator(int studentuKiekis, string failoPav)
 
 void ivestis(data& temp)
 {
+    string pagalba;
+
     int n = 0;
     int k = 1;
     double vidurkis = 0;
     string s1;
-    temp.nd.clear();
+    temp.getNd().clear();
     cout << "Iveskite varda: ";
-    cin >> temp.vardas;
+    cin >> pagalba;
+    temp.setVardas(pagalba);
     cout << "Iveskite pavarde: ";
-    cin >> temp.pavarde;
+    cin >> pagalba;
+    temp.setPavarde(pagalba);
     cout << "Rasykite 0, jei pazymiai baigiasi (max nd pazymiu yra " << C << " )" << endl;
 
-    temp.nd.reserve(1);
+//    temp.nd.reserve(1);
     while (k && (n < C))      //
     {
 
@@ -195,14 +206,14 @@ void ivestis(data& temp)
             }
             else
             {
-                temp.nd.push_back(std::stoi(s1));
-                vidurkis += temp.nd.back();
+                temp.getNd().push_back(std::stoi(s1));
+                vidurkis += temp.getNd().back();
             }
         }
         else
         {
-            temp.nd.push_back(10);
-            vidurkis += temp.nd.back();
+            temp.getNd().push_back(10);
+            vidurkis += temp.getNd().back();
             cout << "galimai ivedete ne numeri arba netinkama pazymi todel " << n + 1 << " mokiniui(-ei) jis buvo pakeistas i 10" << endl;
         }
 
@@ -210,12 +221,12 @@ void ivestis(data& temp)
         if (k != 0)
         {
             n++;
-            temp.nd.reserve(n + 1);
+            temp.getNd().reserve(n + 1);
         }
     }
 
 
-    if (temp.nd.size() != 0)
+    if (temp.getNd().size() != 0)
     {
         vidurkis = vidurkis / n;
     }
@@ -227,29 +238,29 @@ void ivestis(data& temp)
     cin >> s1;
     if (isNumber(s1) && !(std::stoi(s1) > 10 || std::stoi(s1) < 0))
     {
-        temp.egz = std::stoi(s1);
+        temp.setEgzaminas(std::stoi(s1));
     }
     else
     {
-        temp.egz = 10;
+        temp.setEgzaminas(10);
         cout << "galimai ivedete ne numeri arba netinkama egzamino pazymi todel " << n + 1 << " mokiniui(-ei) jis buvo pakeistas i 10" << endl;
     }
-    temp.rez = vidurkis * 0.4 + temp.egz * 0.6;
+    temp.setRez(vidurkis * 0.4 + temp.getEgzaminas() * 0.6);
 
-    if (temp.nd.size() == 0)
+    if (temp.getNd().size() == 0)
     {
-        temp.mediana = temp.egz * 0.6;
+        temp.setMediana(temp.getEgzaminas() * 0.6);
     }
     else
     {
-        sort(temp.nd.begin(), temp.nd.begin() + n);
-        if (temp.nd.size() % 2 == 1)
+        sort(temp.getNd().begin(), temp.getNd().begin() + n);
+        if (temp.getNd().size() % 2 == 1)
         {
-            temp.mediana = temp.nd[temp.nd.size() / 2] * 0.4 + temp.egz * 0.6;
+            temp.setMediana(temp.getNd()[temp.getNd().size() / 2] * 0.4 + temp.getEgzaminas() * 0.6);
         }
         else
         {
-            temp.mediana = ((temp.nd[temp.nd.size() / 2] + temp.nd[(temp.nd.size() / 2) - 1]) / 2.0) * 0.4 + temp.egz * 0.6;
+            temp.setMediana(((temp.getNd()[temp.getNd().size() / 2] + temp.getNd()[(temp.getNd().size() / 2) - 1]) / 2.0) * 0.4 + temp.getEgzaminas() * 0.6);
         }
     }
 
@@ -258,23 +269,27 @@ void ivestis(data& temp)
 
 void ivestis1(data& temp, int kiek)
 {
+    string pagalba;
+
     double vidurkis = 0;
     srand((unsigned)time(0));
     if (kiek > 0)
     {
-        temp.nd.reserve(kiek);
+        temp.getNd().reserve(kiek);
     }
 
     cout << "Iveskite varda: ";
-    cin >> temp.vardas;
+    cin >> pagalba;
+    temp.setVardas(pagalba);
     cout << "Iveskite pavarde: ";
-    cin >> temp.pavarde;
+    cin >> pagalba;
+    temp.setPavarde(pagalba);
     cout << "pazymiai: " << endl;
     for (int i = 0; i < kiek; i++)
     {
-        temp.nd[i] = (rand() % 10) + 1;
-        cout << temp.nd[i] << " ";
-        vidurkis += temp.nd[i];
+        temp.getNd()[i] = (rand() % 10) + 1;
+        cout << temp.getNd()[i] << " ";
+        vidurkis += temp.getNd()[i];
         // n++;
 
     }
@@ -285,25 +300,25 @@ void ivestis1(data& temp, int kiek)
     }
     else vidurkis = 0;
 
-    temp.egz = (rand() % 10) + 1;
+    temp.setEgzaminas((rand() % 10) + 1);
     cout << endl;
-    cout << "Egzaminas: " << temp.egz << endl;
+    cout << "Egzaminas: " << temp.getEgzaminas() << endl;
 
-    temp.rez = vidurkis * 0.4 + temp.egz * 0.6;
+    temp.setRez(vidurkis * 0.4 + temp.getEgzaminas() * 0.6);
 
     if (kiek > 0)
     {
-        sort(temp.nd.begin(), temp.nd.begin() + kiek);
+        sort(temp.getNd().begin(), temp.getNd().begin() + kiek);
         if (kiek % 2 == 1)
         {
-            temp.mediana = temp.nd[kiek / 2] * 0.4 + temp.egz * 0.6;
+            temp.setMediana(temp.getNd()[kiek / 2] * 0.4 + temp.getEgzaminas() * 0.6);
         }
         else
         {
-            temp.mediana = ((temp.nd[kiek / 2] + temp.nd[(kiek / 2) - 1]) / 2.0) * 0.4 + temp.egz * 0.6;
+            temp.setMediana(((temp.getNd()[kiek / 2] + temp.getNd()[(kiek / 2) - 1]) / 2.0) * 0.4 + temp.getEgzaminas() * 0.6);
         }
     }
-    else temp.mediana = temp.egz * 0.6;
+    else temp.setMediana(temp.getEgzaminas() * 0.6);
 }
 
 void ivestisfailas(data& temp)
@@ -313,20 +328,20 @@ void ivestisfailas(data& temp)
 
 void isved(const data& temp)
 {
-    cout << std::left << std::setw(10) << temp.vardas << " " << std::setw(10) << temp.pavarde;
-    cout << std::setw(10) << std::fixed << std::setprecision(2) << temp.rez << " " << endl;
+    cout << std::left << std::setw(10) << temp.getVardas() << " " << std::setw(10) << temp.getPavarde();
+    cout << std::setw(10) << std::fixed << std::setprecision(2) << temp.getRez() << " " << endl;
 }
 
 void isvedmediana(const data& temp)
 {
-    cout << std::left << std::setw(10) << temp.vardas << " " << std::setw(10) << temp.pavarde;
-    cout << std::setw(10) << std::fixed << std::setprecision(2) << temp.mediana << " " << endl;
+    cout << std::left << std::setw(10) << temp.getVardas() << " " << std::setw(10) << temp.getPavarde();
+    cout << std::setw(10) << std::fixed << std::setprecision(2) << temp.getMediana() << " " << endl;
 }
 
 void isvedfailas(const data& temp)
 {
-    cout << std::left << std::setw(10) << temp.vardas << " " << std::setw(10) << temp.pavarde;
-    cout << std::setw(10) << std::fixed << std::setprecision(2) << temp.rez << std::setw(10) << std::fixed << std::setprecision(2) << temp.mediana << " " << endl;
+    cout << std::left << std::setw(10) << temp.getVardas() << " " << std::setw(10) << temp.getPavarde();
+    cout << std::setw(10) << std::fixed << std::setprecision(2) << temp.getRez() << std::setw(10) << std::fixed << std::setprecision(2) << temp.getMediana() << " " << endl;
 }
 
 void trycatch(string& a)
@@ -355,6 +370,8 @@ void trycatch(string& a)
 
 void eil_po_eil(std::string read_vardas, std::string write_vardas, vector<data>& sarasas)
 {
+    string pagalba;
+
     data laikinas;
     std::vector<std::string> splited;
     std::string eil;
@@ -376,8 +393,11 @@ void eil_po_eil(std::string read_vardas, std::string write_vardas, vector<data>&
             std::getline(open_f, eil);
             splited.push_back(eil);
             my_buffer.str(eil);
-            my_buffer >> laikinas.vardas >> laikinas.pavarde;
-            cout << laikinas.vardas << " " << laikinas.pavarde << " ";
+            my_buffer >> pagalba;
+            laikinas.setVardas(pagalba);
+            my_buffer >> pagalba;
+            laikinas.setPavarde(pagalba);
+            cout << laikinas.getVardas() << " " << laikinas.getPavarde() << " ";
             for (int i = 0; i < 15; i++)
             {
                 my_buffer >> paz;
