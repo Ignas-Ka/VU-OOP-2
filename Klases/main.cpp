@@ -35,7 +35,6 @@ int main()
 //    cout << trys.getRez() << ' ' << trys.getMediana();
 
 
-
     setlocale(LC_ALL, "Lithuanian");
     int mok = 0;
     vector<data> sarasas;
