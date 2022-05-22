@@ -27,17 +27,85 @@ using std::left;
 
 
 const int C = 50;
-const string duom = "1000000rez.txt";
-const string rez = "vargsai1000000.txt";
-const string rez1 = "kieti1000000.txt";
+const string duom = "100000rez.txt";
+const string rez = "vargsai100000.txt";
+const string rez1 = "kieti100000.txt";
 
-struct data {
-    string vardas, pavarde;
-    int egz = 0;
-    vector<int> nd;
-    double rez = 0, mediana = 0;
+//struct data {
+//    string vardas, pavarde;
+//    int egz = 0;
+//    vector<int> nd;
+//    double rez = 0, mediana = 0;
+//
+//};
+
+
+
+class data {
+    private:
+	    string vardas, pavarde;
+	    int egz;
+	    vector<int> nd;
+	    double rez, mediana;
+    public:
+        data() : vardas(""), pavarde(""), egz(0), nd(0), rez(0.0), mediana (0.0)  { }  // default konstruktorius
+
+        string getVardas() const { return vardas; }
+        string getPavarde() const { return pavarde; }
+        int getEgzaminas() const { return egz; }
+        const vector<int>& getNd() const { return nd; }
+        vector<int>& getNd() { return nd; }
+        double getRez() const { return rez; }
+        double getMediana() const { return mediana; }
+
+        void setVardas(string vardas) { this->vardas = vardas; }
+        void setPavarde(string pavarde) { this->pavarde = pavarde; }
+        void setEgzaminas(int egz) { this->egz = egz; }
+        void setNd(vector<int> nd) { this->nd = nd; }
+        void setRez(double rez) { this->rez = rez; }
+        void setMediana(double mediana) { this->mediana = mediana; }
+
+        data(const data& that)
+        {
+            this->vardas = that.vardas;
+            this->pavarde = that.pavarde;
+            this->egz = that.egz;
+            this->nd = that.nd;
+            this->rez = that.rez;
+            this->mediana = that.mediana;
+        }
+
+        data& operator=(const data& that)
+        {
+            if (this != &that)
+            {
+                this->vardas = that.vardas;
+                this->pavarde = that.pavarde;
+                this->egz = that.egz;
+                this->nd = that.nd;
+                this->rez = that.rez;
+                this->mediana = that.mediana;
+            }
+            return *this;
+        }
+
+        ~data()
+        {
+            nd.clear();
+        }
+
+        // rezultatø sudëtis
+        data operator + (const data& b) {
+            data rezult;
+            rezult.rez = rez + b.rez;
+            rezult.mediana = mediana + b.mediana;
+            return rezult;
+        }
 
 };
+
+
+
 
 
 

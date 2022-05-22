@@ -20,6 +20,22 @@ int main()
 //    return 0;
 
 
+
+//    data pirmas;
+//    data antras(pirmas);
+//    pirmas = antras;
+
+//    data pi;
+//    data du;
+//    pi.setRez(2);
+//    pi.setMediana(3);
+//    du.setRez(4);
+//    du.setMediana(5);
+//    data trys = pi+du;
+//    cout << trys.getRez() << ' ' << trys.getMediana();
+
+
+
     setlocale(LC_ALL, "Lithuanian");
     int mok = 0;
     vector<data> sarasas;
